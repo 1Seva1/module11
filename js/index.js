@@ -29,7 +29,7 @@ let fruits = JSON.parse(fruitsJSON);
 const display = () => {
   // TODO: очищаем fruitsList от вложенных элементов,
   // чтобы заполнить актуальными данными из fruits
-  //fruitsList.removeChild(li);
+  fruitsList.innerHTML = '';
   for (let i = 0; i < fruits.length; i++) {
     // TODO: формируем новый элемент <li> при помощи document.createElement,
     // и добавляем в конец списка fruitsList при помощи document.appendChild
@@ -41,14 +41,18 @@ const display = () => {
     let div = document.createElement('div');
     div.className = "fruit__info";
     li.appendChild(div);
-    let elem = document.createElement('div');
-    div.appendChild(elem.appendChild(document.createTextNode(`index: ${i}`)));
-    /*elem.appendChild(document.createTextNode(`index: ${i}`));
-    elem.appendChild(document.createTextNode(`kind: ${fruits[i].kind}`));
-    elem.appendChild(document.createTextNode(`color: ${fruits[i].color}`));
-    elem.appendChild(document.createTextNode(`weight (кг): ${fruits[i].weight}`));*/
-    
-    
+    let indexDiv = document.createElement('div');
+    div.appendChild(indexDiv);
+    indexDiv.appendChild(document.createTextNode(`index: ${i} `));
+    let kindDiv = document.createElement('div');
+    div.appendChild(kindDiv);
+    kindDiv.appendChild(document.createTextNode(`kind: ${fruits[i].kind} `));
+    let colorDiv = document.createElement('div');
+    div.appendChild(colorDiv);
+    colorDiv.appendChild(document.createTextNode(`color: ${fruits[i].color} `));
+    let weightDiv = document.createElement('div');
+    div.appendChild(weightDiv);
+    weightDiv.appendChild(document.createTextNode(`weight (кг): ${fruits[i].weight}`));
   }
 };
 

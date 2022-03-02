@@ -29,10 +29,26 @@ let fruits = JSON.parse(fruitsJSON);
 const display = () => {
   // TODO: очищаем fruitsList от вложенных элементов,
   // чтобы заполнить актуальными данными из fruits
-
+  //fruitsList.removeChild(li);
   for (let i = 0; i < fruits.length; i++) {
     // TODO: формируем новый элемент <li> при помощи document.createElement,
     // и добавляем в конец списка fruitsList при помощи document.appendChild
+    const colorBorder = ['fruit_violet', 'fruit_green', 'fruit_carmazin', 'fruit_yellow', 'fruit_lightbrown']
+    let li = document.createElement('li');
+    li.className = "fruit__item";
+    li.classList.add(colorBorder[i]);
+    fruitsList.appendChild(li);
+    let div = document.createElement('div');
+    div.className = "fruit__info";
+    li.appendChild(div);
+    let elem = document.createElement('div');
+    div.appendChild(elem.appendChild(document.createTextNode(`index: ${i}`)));
+    /*elem.appendChild(document.createTextNode(`index: ${i}`));
+    elem.appendChild(document.createTextNode(`kind: ${fruits[i].kind}`));
+    elem.appendChild(document.createTextNode(`color: ${fruits[i].color}`));
+    elem.appendChild(document.createTextNode(`weight (кг): ${fruits[i].weight}`));*/
+    
+    
   }
 };
 
@@ -64,7 +80,7 @@ const shuffleFruits = () => {
 };
 
 shuffleButton.addEventListener('click', () => {
-  shuffleFruits();
+  //shuffleFruits();
   display();
 });
 

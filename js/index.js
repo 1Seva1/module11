@@ -41,19 +41,11 @@ const display = () => {
     let div = document.createElement('div');
     div.className = "fruit__info";
     li.appendChild(div);
-    let indexDiv = document.createElement('div');
-    div.appendChild(indexDiv);
-    indexDiv.appendChild(document.createTextNode(`index: ${i} `));
-    let kindDiv = document.createElement('div');
-    div.appendChild(kindDiv);
-    kindDiv.appendChild(document.createTextNode(`kind: ${fruits[i].kind} `));
-    let colorDiv = document.createElement('div');
-    div.appendChild(colorDiv);
-    colorDiv.appendChild(document.createTextNode(`color: ${fruits[i].color} `));
-    let weightDiv = document.createElement('div');
-    div.appendChild(weightDiv);
-    weightDiv.appendChild(document.createTextNode(`weight (кг): ${fruits[i].weight}`));
+    let info = "" ;
+    info += "<div>" + `index: ${i} ` + "</div>" + "<div>" + `kind: ${fruits[i].kind} ` + "</div>" + "<div>" + `color: ${fruits[i].color} ` + "</div>" + "<div>" + `weight (кг): ${fruits[i].weight}` + "</div>";
+    div.innerHTML = info;
   }
+
 };
 
 // первая отрисовка карточек
@@ -80,11 +72,10 @@ const shuffleFruits = () => {
     min = 0;
     max = fruits.length;
     let i = getRandomInt(min,max);
-    result = fruits.slice(i,i+1);
+    let temp = [];
+    temp = fruits.slice(i,i+1);
     fruits.splice(i, 1);
-    console.log(i);
-    console.log(fruits);
-    console.log(result);
+    result = result.concat(temp);
   }
 
   fruits = result;

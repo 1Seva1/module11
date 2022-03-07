@@ -22,7 +22,7 @@ let fruitsJSON = `[
 
 // преобразование JSON в объект JavaScript
 let fruits = JSON.parse(fruitsJSON);
-
+let tempFruits = fruits.slice();
 /*** ОТОБРАЖЕНИЕ ***/
 
 // отрисовка карточек
@@ -61,14 +61,7 @@ const getRandomInt = (min, max) => {
 // перемешивание массива
 const shuffleFruits = () => {
   let result = [];
-    // ATTENTION: сейчас при клике вы запустите бесконечный цикл и браузер зависнет
   while (fruits.length > 0) {
-    // TODO: допишите функцию перемешивания массива
-    //
-    // Подсказка: находим случайный элемент из fruits, используя getRandomInt
-    // вырезаем его из fruits и вставляем в result.
-    // ex.: [1, 2, 3], [] => [1, 3], [2] => [3], [2, 1] => [], [2, 1, 3]
-    // (массив fruits будет уменьшатся, а result заполняться)
     min = 0;
     max = fruits.length;
     let i = getRandomInt(min,max);
@@ -77,8 +70,7 @@ const shuffleFruits = () => {
     fruits.splice(i, 1);
     result = result.concat(temp);
   }
-
-  fruits = result;
+  (tempFruits == result) ? alert('Порядок не изменился!') : fruits = result;
 };
 
 shuffleButton.addEventListener('click', () => {
@@ -90,9 +82,12 @@ shuffleButton.addEventListener('click', () => {
 
 // фильтрация массива
 const filterFruits = () => {
-  fruits.filter((item) => {
+ let filterArr = fruits.filter(item => {
     // TODO: допишите функцию
+    //console.log(item.weight);
+    return item.weight >= 12 && item.weight <= 22;  
   });
+  fruits = filterArr;
 };
 
 filterButton.addEventListener('click', () => {
@@ -107,15 +102,34 @@ let sortTime = '-'; // инициализация состояния време�
 
 const comparationColor = (a, b) => {
   // TODO: допишите функцию сравнения двух элементов по цвету
+  const priority = ['фиолетовый', 'зеленый', 'розово-красный', 'желтый', 'светло-коричневый']
+  const priority1 = priority.indexOf(a.color);
+  const priority2 = priority.indexOf(b.color);
+  return priority1 > priority2;
 };
 
 const sortAPI = {
   bubbleSort(arr, comparation) {
     // TODO: допишите функцию сортировки пузырьком
+    const n = arr.length;
+    // внешняя итерация по элементам
+    for (let i = 0; i < n-1; i++) { 
+        // внутренняя итерация для перестановки элемента в конец массива
+        for (let j = 0; j < n-1-i; j++) { 
+            // сравниваем элементы
+            if (comparation(arr[j], arr[j+1])) { 
+                // делаем обмен элементов
+                let temp = arr[j+1]; 
+                arr[j+1] = arr[j]; 
+                arr[j] = temp; 
+            }
+        }
+    }     
   },
 
   quickSort(arr, comparation) {
     // TODO: допишите функцию быстрой сортировки
+    
   },
 
   // выполняет сортировку и производит замер времени
@@ -141,6 +155,8 @@ sortActionButton.addEventListener('click', () => {
   sortAPI.startSort(sort, fruits, comparationColor);
   display();
   // TODO: вывести в sortTimeLabel значение sortTime
+  sortTimeLabel.textContent = sortTime;
+  console.log(sortTime);
 });
 
 /*** ДОБАВИТЬ ФРУКТ ***/

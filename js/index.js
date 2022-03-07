@@ -27,12 +27,8 @@ let tempFruits = fruits.slice();
 
 // отрисовка карточек
 const display = () => {
-  // TODO: очищаем fruitsList от вложенных элементов,
-  // чтобы заполнить актуальными данными из fruits
   fruitsList.innerHTML = '';
   for (let i = 0; i < fruits.length; i++) {
-    // TODO: формируем новый элемент <li> при помощи document.createElement,
-    // и добавляем в конец списка fruitsList при помощи document.appendChild
     const colorBorder = ['fruit_violet', 'fruit_green', 'fruit_carmazin', 'fruit_yellow', 'fruit_lightbrown']
     let li = document.createElement('li');
     li.className = "fruit__item";
@@ -83,9 +79,10 @@ shuffleButton.addEventListener('click', () => {
 // фильтрация массива
 const filterFruits = () => {
  let filterArr = fruits.filter(item => {
-    // TODO: допишите функцию
-    //console.log(item.weight);
-    return item.weight >= 12 && item.weight <= 22;  
+    const minweight = document.querySelector('.minweight__input');
+    const maxweight = document.querySelector('.maxweight__input');
+    console.log(minweight.value);
+    return item.weight >= minweight.value && item.weight <= maxweight.value;  
   });
   fruits = filterArr;
 };
@@ -101,7 +98,6 @@ let sortKind = 'bubbleSort'; // инициализация состояния в
 let sortTime = '-'; // инициализация состояния времени сортировки
 
 const comparationColor = (a, b) => {
-  // TODO: допишите функцию сравнения двух элементов по цвету
   const priority = ['фиолетовый', 'зеленый', 'розово-красный', 'желтый', 'светло-коричневый']
   const priority1 = priority.indexOf(a.color);
   const priority2 = priority.indexOf(b.color);
@@ -154,7 +150,6 @@ sortActionButton.addEventListener('click', () => {
   const sort = sortAPI[sortKind];
   sortAPI.startSort(sort, fruits, comparationColor);
   display();
-  // TODO: вывести в sortTimeLabel значение sortTime
   sortTimeLabel.textContent = sortTime;
   console.log(sortTime);
 });
